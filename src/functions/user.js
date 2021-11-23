@@ -8,3 +8,8 @@ export const  removeUser= async (id) =>
 
 export const  getUserCount= async () =>
   await axios.get(`http://localhost:8080/users/count`);
+
+export const addUser = async (data)=>
+  await axios.post("http://localhost:8080/users/addUser",data)
+
+

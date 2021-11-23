@@ -3,15 +3,28 @@ import Card from '../components/cards/Cards';
 import big from '../images/logementimage.jpg';
 import style from '../Cards.module.css'
 import {getMesAnnonce} from '../functions/Annonce'
-
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 export default function Annonce() {
 
-   const [annonces, setAnnonces] = useState([]);
+ const { user } = useSelector((state) => ({ ...state }));
+const [annonces, setAnnonces] = useState([]);
+
+
+     
+  let history = useHistory();
+  const id = localStorage.getItem("id") ;
+  const role = localStorage.getItem("role") ;
+
+if(!id || role ==="admin"){
+    history.push('/login');
+} 
+
     useEffect(() => {
-         
-        getMesAnnonce().then((response) => {
+        
+        getMesAnnonce(id).then((response) => {
             setAnnonces(response.data)
         })
         .catch(error => {

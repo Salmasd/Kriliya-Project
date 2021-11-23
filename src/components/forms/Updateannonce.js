@@ -6,11 +6,11 @@ import { Row, Col, FloatingLabel } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import {getAnnonce, updateAnnonce} from '../../functions/Annonce';
 import { useHistory } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 
 export default function Updateannonce({match}) {
 
-let history = useHistory();
+
 let { slug } = match.params;
 const [chambres, setChambres] = useState('');
 const [chauffage, setChauffage] = useState(false);
@@ -27,6 +27,13 @@ const [type, setType] = useState('');
 const [date, setDate] = useState('');
 const [ville, setVille] = useState('');
 const [wifi, setWifi] = useState(false);
+
+let history = useHistory();
+let { user } = useSelector((state) => ({ ...state }));
+
+if(!user || JSON.stringify(user.role)==="admin"){
+  history.push('/login');
+}
   
       useEffect(() =>{
 

@@ -5,6 +5,8 @@ import { getUsers, removeUser} from "../../functions/user";
 import {  DeleteOutlined } from "@ant-design/icons";
 import { Avatar} from 'antd';
 import LocalSearch from "../../components/forms/LocalSearch";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const UsersList = () => {
 /*   const { user } = useSelector((state) => ({ ...state })); */
@@ -14,9 +16,19 @@ const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [keyword, setKeyword] = useState("");
 
+  let history = useHistory();
+  const { user } = useSelector((state) => ({ ...state }));
+  const role = localStorage.getItem("role") ;
+  const id = localStorage.getItem("id") ;
+
+
+  if(!id || role ==="utilisateur"){
+    history.push('/login');
+  } 
   useEffect(() => {
     loadUsers();
   }, []);
+
 
   const loadUsers = () =>
     getUsers().then((c) => setUsers(c.data));

@@ -8,7 +8,7 @@ const AnnonceListItems = ({annonce}) => {
     quartier,
     surface,
     chambres,
-    mobilliers,
+    meuble,
     wifi,
     refrigerateur,
     chauffage,
@@ -66,7 +66,7 @@ const AnnonceListItems = ({annonce}) => {
       <li className="list-group-item">
       Mobiliers{" "}
         
-          { chauffage==true? 
+          { meuble==true? 
           (<span className="label label-default label-pill text-primary" style={{float: "right"}}>
           Oui</span>) 
           : (<span className="label label-default label-pill text-primary" style={{float: "right"}}>

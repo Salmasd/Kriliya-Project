@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import {addAnnonce} from '../../functions/Annonce'
 import '../../App.css';
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Ajoutannonce() {
 
@@ -27,6 +28,15 @@ export default function Ajoutannonce() {
   const [wifi, setWifi] = useState(false);
   const [images, setImages] = useState([]);
 
+  let { user } = useSelector((state) => ({ ...state }));
+  const id = localStorage.getItem("id") ;
+  const role = localStorage.getItem("role") ;
+
+  if(!id || role ==="admin"){
+    history.push('/login');
+} 
+
+
    const selectFiles = (image) =>{
              setImages(image)
     }
@@ -34,7 +44,7 @@ export default function Ajoutannonce() {
    const saveAnnonce = (a) => {
         console.log(images);
         a.preventDefault();
-        let annonce = {user_id: 1, chambres, chauffage, description, meuble, date, machineALaver, preference, prix, quartier, refrigerateur, surface, titre, type, ville, wifi};
+        let annonce = {user_id: id , chambres, chauffage, description, meuble, date, machineALaver, preference, prix, quartier, refrigerateur, surface, titre, type, ville, wifi};
         var data = new FormData();
         data.append('annonce',  JSON.stringify(annonce));
         for (let i = 0; i < images.length; i++) {
@@ -195,12 +205,16 @@ export default function Ajoutannonce() {
     </div>
   ))}
     </Row>
-    <Form.Group as={Col}>
+  <Form.Group as={Col}>
     <Form.Label>Preferences</Form.Label>
-    <Form.Control type="text" placeholder="Preferences"  onChange={(event) => {  
-      console.log(event.target.value);
-      setPreference(event.target.value); }}/>
-    </Form.Group>
+    <Form.Select defaultValue="Type" onChange={(event) => { 
+      console.log(event.target.value)
+      setPreference(event.target.value); }}>
+        <option>Choisissez vos preferences ...</option>
+        <option>Filles</option>
+        <option>Garcons</option>
+      </Form.Select>
+  </Form.Group>
   
 
     <Form.Group className="mb-3">

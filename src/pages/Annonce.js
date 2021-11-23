@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getannonce, getimages } from "../functions/Annonce";
+import { getannonce } from "../functions/Annonce";
 import SingleAnnounce from "../components/cards/SingleAnnounce";
 
 

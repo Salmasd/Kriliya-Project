@@ -6,7 +6,8 @@ import {  DeleteOutlined } from "@ant-design/icons";
 import image from "../../images/house.jpeg";
 import { Image, Avatar} from 'antd';
 import LocalSearch from "../../components/forms/LocalSearch";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const AnnonceList = () => {
 /*   const { user } = useSelector((state) => ({ ...state })); */
@@ -16,6 +17,14 @@ const AnnonceList = () => {
   const [annonces, setAnnonces] = useState([]);
   const [keyword, setKeyword] = useState("");
 
+  let history = useHistory();
+  let { user } = useSelector((state) => ({ ...state }));
+  const role = localStorage.getItem("role") ;
+  const id = localStorage.getItem("id") ;
+
+if(!id || role ==="utilisateur"){
+  history.push('/login');
+} 
   useEffect(() => {
     loadAnnonces();
   }, []);
@@ -65,7 +74,7 @@ const AnnonceList = () => {
             <div className="alert alert-secondary" key={c.id}>
               
               <div style={{ marginTop:"1%", display:"flex"}}> 
-             <Avatar shape="square" size={150} src={<Image src={image} style={{ width: 150, height:120,float:"left" }} />} />
+             <Avatar shape="square" size={150} src={<Image src={"data:image/jpeg;base64,"+c.images[0].image+""} style={{ width: 150, height:120,float:"left" }} />} />
            
                 <span style={{ marginTop:"2%",marginLeft:"2%"}}> 
                 {"  "} <b>{c.titre} </b><br/>

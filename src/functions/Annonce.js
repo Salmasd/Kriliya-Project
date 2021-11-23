@@ -12,8 +12,8 @@ export const  deleteAnnonce= async (id) =>
 export const  getAnnonceCount= async () =>
   await axios.get(`http://localhost:8080/annonce/count`);
 
-  export const getMesAnnonce = async () => 
-  await axios.get("http://localhost:8080/annonce/mesAnnonces/1");
+  export const getMesAnnonce = async (id) => 
+  await axios.get("http://localhost:8080/annonce/mesAnnonces/"+id);
 
   export const getAnnonce = async (id) =>
    await axios.get("http://localhost:8080/annonce/annonce/"+id);

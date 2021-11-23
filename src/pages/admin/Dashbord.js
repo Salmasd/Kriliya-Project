@@ -11,6 +11,9 @@ import { gridSpacing } from '../../functions/constant';
 import image from "../../images/etudiant.png";
 import { getUserCount } from "../../functions/user";
 import { getAnnonceCount } from "../../functions/Annonce";
+import firebase from 'firebase/compat/app';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -20,6 +23,15 @@ const Dashboard = () => {
     const [annoncecount, setAnnoncecount] = useState([]);
     const [usercount, setUsercount] = useState([]);
   
+  let history = useHistory();
+  let { user } = useSelector((state) => ({ ...state }));
+
+  const role = localStorage.getItem("role") ;
+  const id = localStorage.getItem("id") ;
+
+  if(!id || role ==="utilisateur"){
+    history.push('/login');
+  } 
    useEffect(() => {
     getAnnonceCount().then((res) => {
         setAnnoncecount(res.data);
